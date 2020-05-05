@@ -1,10 +1,11 @@
 <script>
 import Chart from 'chart.js';
 import { onMount } from 'svelte';
-
 import {tableau} from '../store/tableau.js';
+import { collectionData, firestore } from '../Firebase';
 
-const MONTH = ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre']
+
+
 
 var ctx;
 var myChart;
@@ -13,8 +14,9 @@ var nom=''
 var varY = [0,0,0,0,0,0,0,0,0,0,0,0];
 
 
-onMount(() => {
-myChart = new Chart(ctx.getContext('2d'), {
+const MONTH = ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre']
+
+const dataChart = {
     type: 'line',
     data: {
         labels: MONTH,
@@ -37,18 +39,55 @@ myChart = new Chart(ctx.getContext('2d'), {
 					fontSize: 25,
                 }
             }]
-		},
+        },
+        animation: {
+            duration: 0
+        },
+        hover: {
+            animationDuration: 0
+        },
+        responsiveAnimationDuration: 0
 		
 	}
+    };
+    
+    
+
+
+onMount(() => {
+const query = firestore.collection('graph-svelte');
+ 
+    collectionData(query).subscribe(graphs =>{
+		let dataset=[];
+		tableau.set([]);
+        graphs.forEach(graph => {
+			dataset.push(graph)
+            $tableau = [...$tableau,graph];
+   
+		});
+		dataChart.data.datasets = dataset;
+		
+		myChart.update();
+     
 	});
+
+myChart = new Chart(ctx.getContext('2d'), dataChart);
+
+		
+myChart.update();
+
+
+
+
+
 })
 
-function addValue(){
+async function addValue(){
 	if(nom != ''){
 		count++;
 		let color = [Math.floor(Math.random() * 255),Math.floor(Math.random() * 255),Math.floor(Math.random() * 255)];
 		let data = {
-				label: varY[0],
+				label: nom,
 				data: varY,
 				backgroundColor: 
 					'rgba('+color[0]+', '+color[1]+', '+color[2]+', 0.2)',
@@ -60,7 +99,8 @@ function addValue(){
 				borderWidth: 1
 			}
 		$tableau = [...$tableau,data];
-		myChart.data.datasets.push(data);
+		
+		await add(data);
 		myChart.update();
 	}
 	else{
@@ -68,8 +108,16 @@ function addValue(){
 	}
 }
 
+async function add(data){
+    try{
+        await firestore.collection('graph-svelte').add(data)
+    }catch(error){
+        console.log(error);
+	}
+}
+	
 
-function addRandom(){
+async function addRandom(){
 	count++;
 	let color = [Math.floor(Math.random() * 255),Math.floor(Math.random() * 255),Math.floor(Math.random() * 255)];
 	let data = {
@@ -97,7 +145,8 @@ function addRandom(){
             borderWidth: 1
 		};
 	$tableau = [...$tableau,data];
-	myChart.data.datasets.push(data);
+	await add(data);
+
 	myChart.update();
 }
 

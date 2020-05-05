@@ -2,7 +2,12 @@
 <script>
 import {tableau} from '../store/tableau.js';
 import { fly } from 'svelte/transition';
+import { collectionData, firestore } from '../Firebase';
+import { startWith } from 'rxjs/operators';
+
 $: tab = $tableau;
+
+
 
 </script>
 <div transition:fly={{x: 250, opacity: 1}} id='list'>
@@ -10,7 +15,9 @@ $: tab = $tableau;
     {#each tab as item}
     <li>{item.label}</li>
     {/each}
+  
     </ul>
+   
 </div>
 
 <style>
