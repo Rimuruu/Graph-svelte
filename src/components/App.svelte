@@ -66,7 +66,6 @@ const query = firestore.collection('graph-svelte');
    
 		});
 		dataChart.data.datasets = dataset;
-		
 		myChart.update();
      
 	});
@@ -101,7 +100,7 @@ async function addValue(){
 		$tableau = [...$tableau,data];
 		
 		await add(data);
-		myChart.update();
+		
 	}
 	else{
 		alert('Veuillez inscrire un nom');
@@ -147,7 +146,7 @@ async function addRandom(){
 	$tableau = [...$tableau,data];
 	await add(data);
 
-	myChart.update();
+	
 }
 
 </script>
