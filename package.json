@@ -13,13 +13,16 @@
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-svelte": "^5.0.3",
     "rollup-plugin-terser": "^5.1.2",
-    "svelte": "^3.0.0"
+    "svelte": "^3.22.2"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.28",
+    "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "firebase": "^7.14.2",
     "rxfire": "^3.12.2",
     "rxjs": "^6.5.5",
-    "sirv-cli": "^0.4.4"
+    "sirv-cli": "^0.4.4",
+    "sveltestrap": "^3.3.3"
   }
 }

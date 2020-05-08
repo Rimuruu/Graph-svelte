@@ -3,7 +3,10 @@ import Chart from 'chart.js';
 import { onMount } from 'svelte';
 import {tableau} from '../store/tableau.js';
 import { collectionData, firestore } from '../Firebase';
-
+import {
+    Button, Card, CardBody, CardFooter, CardHeader,
+    CardImg, CardSubtitle, CardText, CardTitle
+  } from "sveltestrap";
 
 
 
@@ -151,36 +154,51 @@ async function addRandom(){
 
 </script>
 
-<div id="container">
-	<canvas bind:this={ctx} id="myChart"></canvas>
-	<div>
-		<input bind:value={nom} required placeholder="Nom" size="4">
-		<input bind:value={varY[0]}  type="number" placeholder="Janvier" >
-		<input bind:value={varY[1]}  type="number" placeholder="Fevrier" >
-		<input bind:value={varY[2]}  type="number" placeholder="Mars" >
-		<input bind:value={varY[3]}  type="number" placeholder="Avril" >
-		<input bind:value={varY[4]}  type="number" placeholder="Mai" >
-		<input bind:value={varY[5]}  type="number" placeholder="Juin" >
-		<input bind:value={varY[6]}  type="number" placeholder="Juillet" >
-		<input bind:value={varY[7]}  type="number" placeholder="Aout" >
-		<input bind:value={varY[8]}  type="number" placeholder="Septembre" >
-		<input bind:value={varY[9]}  type="number" placeholder="Octobre" >
-		<input bind:value={varY[10]} type="number" placeholder="Novembre" >
-		<input bind:value={varY[11]}  type="number" placeholder="Decembre" >
-		<button on:click={addValue}>Ajouter</button>
-	</div>
-	<button on:click={addRandom}>Ajouter Random</button>
-
+<div class="body">
+	<Card class="mb-3">
+	<CardHeader >
+	<div class="body">
+		<CardTitle >Graph-svelte</CardTitle>
+		</div>
+	</CardHeader>
+		<CardBody >
+			<div class="body">
+				<canvas bind:this={ctx} id="myChart"></canvas>
+			</div>
+		</CardBody>
+		<CardFooter class="body">
+			<div class="body">
+				<div>
+					<input bind:value={nom} required placeholder="Nom" size="4">
+					<input bind:value={varY[0]}  type="number" placeholder="Janvier" >
+					<input bind:value={varY[1]}  type="number" placeholder="Fevrier" >
+					<input bind:value={varY[2]}  type="number" placeholder="Mars" >
+					<input bind:value={varY[3]}  type="number" placeholder="Avril" >
+					<input bind:value={varY[4]}  type="number" placeholder="Mai" >
+					<input bind:value={varY[5]}  type="number" placeholder="Juin" >
+					<input bind:value={varY[6]}  type="number" placeholder="Juillet" >
+					<input bind:value={varY[7]}  type="number" placeholder="Aout" >
+					<input bind:value={varY[8]}  type="number" placeholder="Septembre" >
+					<input bind:value={varY[9]}  type="number" placeholder="Octobre" >
+					<input bind:value={varY[10]} type="number" placeholder="Novembre" >
+					<input bind:value={varY[11]}  type="number" placeholder="Decembre" >
+					<button on:click={addValue}>Ajouter</button>
+				</div>
+			<button on:click={addRandom}>Ajouter Random</button>
+			</div>
+		</CardFooter>
+		
+	</Card>
 </div>
 
 <style>
 
-#container{
+.body{
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 100%;
-	height: 100%;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 	
 }
 

@@ -4,20 +4,21 @@ import {tableau} from '../store/tableau.js';
 import { fly } from 'svelte/transition';
 import { collectionData, firestore } from '../Firebase';
 import { startWith } from 'rxjs/operators';
-
+import { ListGroup, ListGroupItem } from 'sveltestrap';
 $: tab = $tableau;
 
 
 
 </script>
 <div transition:fly={{x: 250, opacity: 1}} id='list'>
-    <ul>
+<ListGroup>
+  
     {#each tab as item}
-    <li>{item.label}</li>
+    <ListGroupItem>{item.label}</ListGroupItem>
     {/each}
   
-    </ul>
-   
+    
+   </ListGroup>
 </div>
 
 <style>
@@ -26,6 +27,10 @@ $: tab = $tableau;
     width:150px;
     right: 0;
     position: absolute;
+    max-height: 300px;
+    margin-bottom: 10px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 </style>
