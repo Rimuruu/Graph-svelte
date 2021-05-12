@@ -18,7 +18,7 @@
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "bootstrap": "^4.4.1",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "firebase": "^7.14.2",
     "rxfire": "^3.12.2",
     "rxjs": "^6.5.5",
